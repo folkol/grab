@@ -1,44 +1,24 @@
 # Grab — a unix filter for extracting parts of the line
 
-## Usecases
+Grabs specified tokens from lines on stdin.
 
-grab numbers from lines
-grab dates from lines
-grab quoted string from lines
-grab urls from lines
+`usage: grab.py [-h] command [tokens]`
 
-## Roadmap
+Each character in `command` specifies a token, `grab` will scan the input line for each token, and output them tab-separated.
 
-grab and destructure quoted string from line ('grab quoted string from access log, grab method and path from that string')
+If `tokens` is specified, only these tokens are printed (1-indexed). Indices are numbers from 0–9.
 
 ## Examples
 
-grab dd  # grab first two numbers
-grab qd 2  # grab quoted string, and then the next number after that, disbard the quoted string
-grab -qd  # discard first quoted string, print nubmer after that
-grab iDq(-SS)d  # grab ip, date, quoted string (Discard first word, grab second) and number.  
-grab 3d  # grab three numbers
-grab 3d 231  # grab first three number, print them in other order
+- grab first two numbers: `grab dd`
+- grab quoted string and number: `grab qd`
+- grab three numbers, print them in reverse order: `grab ddd 321`
 
-full syntax of grab command:
+## Known tokens
 
-grab [ -d '\t' ] ( MULTIPLIER PATTERN [ PARAMETERS ] )+ [ FORMAT_STRING ]
-
-pattern definitions:
-    - default/builtin
-    - command line arguments?
-    - env variables
-    - .grab file
-
-## PATTERNS
-
-d   digits
-f   floating point
-n   number?
-
-s   string? (whitespace?)
-D   date
-q   quoted string
-
-(custom regex)
--(custom regex)  # discard this
+- *d* (integer)
+- *i* (IPv4) address)
+- *e* (email address)
+- *q* (double-quoted string)
+- *w* (word)
+- *[* (square-bracketed expression)
