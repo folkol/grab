@@ -25,8 +25,12 @@ PATTERNS = {
 }
 
 parser = argparse.ArgumentParser(description='grabs tokens from lines of text.')
-parser.add_argument('command', action='store', help='specifies what tokens to grab')
-parser.add_argument('tokens', nargs='?', help='Which tokens to output (1-based, defaults to all)')
+parser.add_argument('command',
+                    action='store',
+                    help='specifies what tokens to grab')
+parser.add_argument('tokens',
+                    nargs='?',
+                    help='Which tokens to output (1-based, defaults to all)')
 parser.epilog = ("token types: d=integer number, i=IP address, a=IP or domain name, e=email address, q=double quoted "
                  "string, w=word, [=square bracketed text ")
 args = parser.parse_args()
@@ -35,20 +39,13 @@ indices = [int(c) for c in args.tokens or range(len(args.command))]
 
 for line in sys.stdin:
     tokens = []
-    prev = ''
     for c in args.command:
-        if c == '\\':
-            prev = c
-            continue
-
         pattern = PATTERNS[c]
         match = re.search(pattern, line)
         if match:
             begin, end = match.span()
-            if prev != '\\':
-                tokens.append(line[begin: end])
+            tokens.append(line[begin: end])
             line = line[end:]
-        prev = c
 
     output = []
     for i in indices:
