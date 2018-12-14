@@ -1,9 +1,12 @@
+import argparse
 import re
 import sys
 
-command = sys.argv[1]
+from signal import signal, SIGPIPE, SIG_DFL
 
-patterns = {
+signal(SIGPIPE, SIG_DFL)
+
+PATTERNS = {
     'd': r'[0-9]+',
     'i': r'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
     'a': r"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:["
@@ -20,35 +23,39 @@ patterns = {
     '[': r'\[[^\]]*\]'
 }
 
-# print(patterns['a'])
-# print(patterns['e'])
+parser = argparse.ArgumentParser(description='grabs tokens from lines of text.')
+parser.add_argument('command', action='store', help='specifies what tokens to grab')
+parser.add_argument('tokens', nargs='?', help='Which tokens to output (1-based, defaults to all)')
+parser.epilog = ("token types: d=integer number, i=IP address, a=IP or domain name, e=email address, q=double quoted "
+                 "string, w=word, [=square bracketed text ")
+args = parser.parse_args()
 
-if len(sys.argv) == 3:
-    indices = [int(c) for c in sys.argv[2]]
-else:
-    indices = [i + 1 for i in range(len(command))]
+indices = [int(c) for c in args.tokens or range(len(args.command))]
 
-with open('sample/access_log') as f:
-    for line in sys.stdin:
-        tokens = []
-        prev = ''
-        for c in command:
-            if c == '\\':
-                prev = c
-                continue
-
-            pattern = patterns[c]
-            match = re.search(pattern, line)
-            if match:
-                begin, end = match.span()
-                if prev != '\\':
-                    tokens.append(line[begin: end])
-                line = line[end:]
+for line in sys.stdin:
+    tokens = []
+    prev = ''
+    for c in args.command:
+        if c == '\\':
             prev = c
+            continue
 
-        output = []
-        for i in indices:
+        pattern = PATTERNS[c]
+        match = re.search(pattern, line)
+        if match:
+            begin, end = match.span()
+            if prev != '\\':
+                tokens.append(line[begin: end])
+            line = line[end:]
+        prev = c
+
+    output = []
+    for i in indices:
+        try:
             output.append(tokens[i - 1])
+        except IndexError:
+            pass
 
-        # print(f'tokens={tokens}, output={output}')
-        print('\t'.join(output))
+    output = '\t'.join(output)
+    if output:
+        print(output)
