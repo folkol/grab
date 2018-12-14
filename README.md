@@ -1,4 +1,4 @@
-# Grab — a unix filter for extracting parts of the line
+# Grab — a unix filter for extracting tokens
 
 Grabs specified tokens from lines on stdin.
 
