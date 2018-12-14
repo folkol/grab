@@ -10,7 +10,7 @@ If `tokens` is specified, only these tokens are printed (1-indexed). Indices are
 
 ## Installation
 
-`ln -sf $(pwd)/grab.py /usr/local/bin/grab`
+`ln -s $(pwd)/grab.py /usr/local/bin/grab`
 
 ## Examples
 
