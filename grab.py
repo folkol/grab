@@ -35,7 +35,7 @@ parser.epilog = ("token types: d=integer number, i=IP address, a=IP or domain na
                  "string, w=word, [=square bracketed text ")
 args = parser.parse_args()
 
-indices = [int(c) for c in args.tokens or range(len(args.command))]
+indices = [int(c) for c in args.tokens or range(1, len(args.command) + 1)]
 
 for line in sys.stdin:
     tokens = []
