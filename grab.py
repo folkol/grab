@@ -77,4 +77,4 @@ for line in sys.stdin:
 
     output = '\t'.join(output)
     if output:
-        print(output)
+        print(output, flush=True)
