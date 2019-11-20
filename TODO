@@ -1,0 +1,3 @@
+# TODO
+
+- Additional token patterns as command-line options. I.e. `grab -b 'BÖRJE' 'bbb'`.
