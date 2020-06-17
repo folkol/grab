@@ -1,3 +1,7 @@
 # TODO
 
 - Additional token patterns as command-line options. I.e. `grab -b 'BÖRJE' 'bbb'`.
+- ISO Date(time)
+- More useful tokens
+- Possibility to share libraries?
+- Clean up and distribute as pipx-program
