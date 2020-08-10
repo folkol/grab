@@ -1,0 +1,6 @@
+$ bump version
+$ python setup.py sdist bdist_wheel
+$ twine upload -r testpypi dist/*
+$ pip install --index-url https://test.pypi.org/simple/ futils-grab
+$ # Looks good?
+$ twine upload dist/*
