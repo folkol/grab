@@ -1,3 +1,5 @@
 sample
 venv/
 .idea/
+__pycache__/
+futils_grab.egg-info

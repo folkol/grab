@@ -86,11 +86,14 @@ def main():
     parser.epilog += '\nOverride or add new tokens with ~/.grabrc (JSON: { "a": "someregex" }'
     args = parser.parse_args()
 
-    for line in sys.stdin:
-        tokens = grab_tokens(line, args.command, patterns, args.projection)
+    try:
+        for line in sys.stdin:
+            tokens = grab_tokens(line, args.command, patterns, args.projection)
 
-        if tokens:
-            print(*tokens, sep='\t', flush=True)
+            if tokens:
+                print(*tokens, sep='\t', flush=True)
+    except KeyboardInterrupt:
+        pass
 
 
 if __name__ == '__main__':
