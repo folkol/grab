@@ -87,8 +87,12 @@ def main():
     args = parser.parse_args()
 
     try:
-        for line in sys.stdin:
-            tokens = grab_tokens(line, args.command, patterns, args.projection)
+        for line in sys.stdin.buffer.raw:
+            try:
+                line = line.decode()
+                tokens = grab_tokens(line, args.command, patterns, args.projection)
+            except UnicodeDecodeError:
+                pass
 
             if tokens:
                 print(*tokens, sep='\t', flush=True)
