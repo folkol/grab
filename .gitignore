@@ -5,3 +5,4 @@ __pycache__/
 futils_grab.egg-info
 dist/
 build/
+*.egg-info/

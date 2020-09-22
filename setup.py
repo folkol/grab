@@ -5,8 +5,8 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
-    name='futils-grab',
-    version='0.0.2',
+    name='folkol.grab',
+    version='0.0.4',
     description='a unix filter for extracting tokens',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -20,11 +20,11 @@ setup(
         'License :: OSI Approved :: MIT License',
     ],
     keywords='shell, unix filter',
-    py_modules=["grab"],
+    packages=["folkol"],
     python_requires='>=3.6, <4',
     entry_points={
         'console_scripts': [
-            'grab=grab:main',
+            'grab=folkol.grab:main',
         ],
     },
     project_urls={
