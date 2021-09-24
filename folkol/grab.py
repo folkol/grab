@@ -1,4 +1,9 @@
 #! /usr/bin/env python3
+"""Grabs specified tokes from lines on stdin.
+
+TODO:
+    grab number = column?
+"""
 import argparse
 import json
 import re
