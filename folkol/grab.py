@@ -31,7 +31,7 @@ PATTERNS = {
 PATTERNS_HELP = {
     'd': 'integer',
     'i': 'IPv4 address',
-    'a': 'Address (hostname or IP',
+    'a': 'Address (hostname or IP)',
     'e': 'Email address',
     'q': "'-quoted string",
     'Q': '"-quoted string',
